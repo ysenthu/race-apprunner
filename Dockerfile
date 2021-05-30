@@ -7,5 +7,5 @@ WORKDIR $APP_HOME
 COPY . ./
 
 RUN pip install Flask gunicorn
-
-CMD exec gunicorn --bind :8765 --workers 1 --threads 8 --timeout 0 app:app
+EXPOSE 8888
+CMD exec gunicorn --bind :8888 --workers 1 --threads 8 --timeout 0 app:app
