@@ -24,7 +24,7 @@ def appRoot():
 
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-    return jsonify({"message": "Hello From Senthu's Flask App, Current Date is : {} Environment {}".format(dt_string,environment)})
+    return jsonify({"message": "Hello From Senthu's Flask App, Current Date is : {} ".format(dt_string)})
 
 @app.route('/healthz')
 def healthcheck():
@@ -32,18 +32,14 @@ def healthcheck():
 
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-    return jsonify({"message": "Hello From Senthu's Flask App, Current Date is : {} Environment {}".format(dt_string,environment)})
+    return jsonify({"message": "Hello From Senthu's Flask App, Current Date is : {} ".format(dt_string)})
 
-def main():
-
-    global environment
-
-    if os.getenv('ENVIRONMENT') is not None:
-        environment = os.getenv('ENVIRONMENT')
-    else:
-        environment = "dev"
-
-    app.run(debug=False, host='0.0.0.0',port=8888)
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0',port=8888)
+
+    if os.getenv('ENVIRONMENT') is not None:
+        app.config['environment'] = os.getenv('ENVIRONMENT')
+    else:
+        app.config['environment'] = "dev"
+
+    app.run(debug=False, host='0.0.0.0',port=8888)
